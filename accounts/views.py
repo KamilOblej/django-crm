@@ -25,11 +25,29 @@ def home(request):
     return render(request, 'accounts/dashboard.html', context)
 
 
-def customer(request):
-    return render(request, 'accounts/customer.html')
+def customer(request, pk_test):
+    customer = Customer.objects.get(id=pk_test)
+    orders = customer.order_set.all()
+    orders_count = orders.count()
+
+    context = {
+        'customer': customer,
+        'orders': orders,
+        'orders_count': orders_count,
+    }
+
+    return render(request, 'accounts/customer.html', context)
 
 
 def products(request):
     products = Product.objects.all()
 
     return render(request, 'accounts/products.html', {'products': products})
+
+
+def create_order(request):
+
+    context = {
+
+    }
+    return render(request, 'accounts/order_form.html', context)
