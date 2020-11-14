@@ -10,9 +10,11 @@ urlpatterns = [
 
 
     path('', views.home, name='dashboard'),
+    path('', views.home, name='home'),
     path('customer/<str:pk_test>/', views.customer, name='customer'),
     path('products/', views.products, name='products'),
     path('user/', views.user_page, name='user_page'),
+    path('account/', views.account_settings, name='account_settings'),
 
 
     path('create_order/<str:pk>', views.create_order, name='create_order'),
