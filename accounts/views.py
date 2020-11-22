@@ -24,15 +24,6 @@ def register_page(request):
             user = form.save()
             username = form.cleaned_data.get('username')
 
-            group = Group.objects.get(name='customer')
-            user.groups.add(group)
-            # Added username after video because of error returning customer name if not added
-            Customer.objects.create(
-                user=user,
-                name=user.username,
-                email=user.email,
-            )
-
             messages.success(request, 'Account was created for ' + username)
 
             return redirect('login')
@@ -159,7 +150,7 @@ def products(request):
 @allowed_users(allowed_roles=['admin'])
 def create_order(request, pk):
     OrderFormSet = inlineformset_factory(
-        Customer, Order, fields=('product', 'status'), extra=10)
+        Customer, Order, fields=('product', 'note', 'status'), extra=5)
     customer = Customer.objects.get(id=pk)
     formset = OrderFormSet(queryset=Order.objects.none(), instance=customer)
 
